@@ -59,7 +59,7 @@
 //===========================================================================
 
 // Core XY
-//#define SAPPHIRE_PRO
+#define SAPPHIRE_PRO
 //#define SAPPHIRE_PLUS
 
 // Cartesian
@@ -89,16 +89,16 @@
 
 // Motion Control Settings
 // New Motion Control              - Classic Jerk [OFF] | S-Curve Acceleration [ON]  | Junction Deviation Factor [ON]
-//#define MOTION_NEW
-//#define MOTION_NEW_JD           // If there is a jerky movement during small circular movements, activate the function
+#define MOTION_NEW
+#define MOTION_NEW_JD           // If there is a jerky movement during small circular movements, activate the function
 
 // Classic Motion Control          - Classic Jerk [ON]  | S-Curve Acceleration [OFF] | Junction Deviation Factor [OFF]
-#define MOTION_CLASSIC
+//#define MOTION_CLASSIC
 
 
 // Linear Pressure Control
 //Use at your own risk! It can cause extruder errors...
- //#define LINEAR_PRESSURE_CONTROL
+#define LINEAR_PRESSURE_CONTROL
 #if ENABLED(LINEAR_PRESSURE_CONTROL)
   #define LINEAR_PRESSURE_CONTROL_VALUE   0
 #endif
@@ -125,15 +125,15 @@
 #if ENABLED(CUSTOM_STEPPER_DRIVERS)
   #define DRIVER_X TMC2209_STANDALONE
   #define DRIVER_Y TMC2209_STANDALONE
-  #define DRIVER_Z TMC2209_STANDALONE
+  #define DRIVER_Z TMC2208_STANDALONE
   #define DRIVER_E0 TMC2209_STANDALONE
   //#define DRIVER_E1 TMC2209_STANDALONE
   //#define DRIVER_Z2 TMC2209_STANDALONE
 
   //#define INVERT_X
   //#define INVERT_Y
-  #define INVERT_Z 
-  #define INVERT_E0 
+  //#define INVERT_Z 
+  //#define INVERT_E0 
   //#define INVERT_Z2
   //#define INVERT_E1
 #endif
@@ -732,7 +732,7 @@
 #define HEATER_5_MAXTEMP 275
 #define HEATER_6_MAXTEMP 275
 #define HEATER_7_MAXTEMP 275
-#define BED_MAXTEMP      125
+#define BED_MAXTEMP      100
 
 //===========================================================================
 //============================= PID Settings ================================
@@ -755,9 +755,9 @@
 
   #if ENABLED(SAPPHIRE_PRO) && NONE(CUSTOM_HOTEND_PID) 
     //Sapphire Pro
-    #define DEFAULT_Kp 14.21
-    #define DEFAULT_Ki 0.88
-    #define DEFAULT_Kd 57.26
+    #define DEFAULT_Kp 12.17
+    #define DEFAULT_Ki 0.74
+    #define DEFAULT_Kd 50.22
   #elif ENABLED(SAPPHIRE_PLUS) && NONE(CUSTOM_HOTEND_PID) 
     //Sapphire Plus
     #define DEFAULT_Kp 15.30
@@ -819,9 +819,9 @@
 
   #if ENABLED(SAPPHIRE_PRO) && NONE(CUSTOM_BED_PID) 
     //Sapphire Pro
-    #define DEFAULT_bedKp 21.37
-    #define DEFAULT_bedKi 3.29
-    #define DEFAULT_bedKd 92.53
+    #define DEFAULT_bedKp 49.39
+    #define DEFAULT_bedKi 8.56
+    #define DEFAULT_bedKd 189.96
   #elif ENABLED(SAPPHIRE_PLUS) && NONE(CUSTOM_BED_PID) 
     //Sapphire Plus
     #define DEFAULT_bedKp 45.0
@@ -848,7 +848,7 @@
   //#define PID_DEBUG             // Sends debug data to the serial port. Use 'M303 D' to toggle activation.
   //#define PID_OPENLOOP          // Puts PID in open loop. M104/M140 sets the output power from 0 to PID_MAX
   //#define SLOW_PWM_HEATERS      // PWM with very low frequency (roughly 0.125Hz=8s) and minimum state time of approximately 1s useful for heaters driven by a relay
-  #define PID_FUNCTIONAL_RANGE 10 // If the temperature difference between the target temperature and the actual temperature
+  #define PID_FUNCTIONAL_RANGE 20 // If the temperature difference between the target temperature and the actual temperature
                                   // is more than PID_FUNCTIONAL_RANGE then the PID will be shut off and the heater will be set to min/max.
 #endif
 
@@ -1028,11 +1028,11 @@
  */
 #if ENABLED(SAPPHIRE_PRO) && NONE(CUSTOM_STEPPER_DRIVERS)
     //Sapphire Pro
-    #define X_DRIVER_TYPE  TMC2208_STANDALONE
-    #define Y_DRIVER_TYPE  TMC2208_STANDALONE
-    #define Z_DRIVER_TYPE  A4988
+    #define X_DRIVER_TYPE  TMC2209_STANDALONE
+    #define Y_DRIVER_TYPE  TMC2209_STANDALONE
+    #define Z_DRIVER_TYPE  TMC2208_STANDALONE
     //#define Z2_DRIVER_TYPE A4988
-    #define E0_DRIVER_TYPE A4988
+    #define E0_DRIVER_TYPE TMC2209_STANDALONE
     //#define E1_DRIVER_TYPE A4988
   #elif ENABLED(SAPPHIRE_PLUS) && NONE(CUSTOM_STEPPER_DRIVERS)
     //Sapphire Plus
@@ -1140,7 +1140,7 @@
       #define STEPS_Z     1600
     #endif
     #ifndef STEPS_E0
-      #define STEPS_E0    415
+      #define STEPS_E0    411
     #endif
   #elif ENABLED(SAPPHIRE_PLUS)
     //Sapphire Plus
@@ -1285,7 +1285,7 @@
  *   http://blog.kyneticcnc.com/2018/10/computing-junction-deviation-for-marlin.html
  */
 #if DISABLED(CLASSIC_JERK)
-  #define JUNCTION_DEVIATION_MM 0.019 // (mm) Distance from real junction edge
+  #define JUNCTION_DEVIATION_MM 0.025 // (mm) Distance from real junction edge
 
   #if ENABLED(MOTION_NEW_JD) 
   #define JD_HANDLE_SMALL_SEGMENTS    // Use curvature estimation instead of just the junction angle
